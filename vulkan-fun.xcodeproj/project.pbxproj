@@ -15,6 +15,7 @@
 		673EEA4F26534F4E00340896 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 673EEA4526534EA700340896 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		673EEA52265D591100340896 /* windowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA50265D591100340896 /* windowManager.cpp */; };
 		673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA57265E9F8C00340896 /* debugMessengerUtil.cpp */; };
+		673EEA5C265EA8F200340896 /* vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA5A265EA8F200340896 /* vulkan.cpp */; };
 		67DA506426531D3A003E0755 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA506326531D3A003E0755 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,8 @@
 		673EEA51265D591100340896 /* windowManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = windowManager.hpp; sourceTree = "<group>"; };
 		673EEA57265E9F8C00340896 /* debugMessengerUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = debugMessengerUtil.cpp; sourceTree = "<group>"; };
 		673EEA58265E9F8C00340896 /* debugMessengerUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = debugMessengerUtil.hpp; sourceTree = "<group>"; };
+		673EEA5A265EA8F200340896 /* vulkan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan.cpp; sourceTree = "<group>"; };
+		673EEA5B265EA8F200340896 /* vulkan.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vulkan.hpp; sourceTree = "<group>"; };
 		67DA506026531D3A003E0755 /* vulkan-fun */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "vulkan-fun"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67DA506326531D3A003E0755 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +99,8 @@
 				673EEA51265D591100340896 /* windowManager.hpp */,
 				673EEA57265E9F8C00340896 /* debugMessengerUtil.cpp */,
 				673EEA58265E9F8C00340896 /* debugMessengerUtil.hpp */,
+				673EEA5A265EA8F200340896 /* vulkan.cpp */,
+				673EEA5B265EA8F200340896 /* vulkan.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				673EEA5C265EA8F200340896 /* vulkan.cpp in Sources */,
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
 				673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */,
