@@ -16,6 +16,7 @@
 		673EEA52265D591100340896 /* windowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA50265D591100340896 /* windowManager.cpp */; };
 		673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA57265E9F8C00340896 /* debugMessengerUtil.cpp */; };
 		673EEA5C265EA8F200340896 /* vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA5A265EA8F200340896 /* vulkan.cpp */; };
+		673EEA5F265EBD5200340896 /* devices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673EEA5D265EBD5200340896 /* devices.cpp */; };
 		67DA506426531D3A003E0755 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA506326531D3A003E0755 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		673EEA58265E9F8C00340896 /* debugMessengerUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = debugMessengerUtil.hpp; sourceTree = "<group>"; };
 		673EEA5A265EA8F200340896 /* vulkan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan.cpp; sourceTree = "<group>"; };
 		673EEA5B265EA8F200340896 /* vulkan.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vulkan.hpp; sourceTree = "<group>"; };
+		673EEA5D265EBD5200340896 /* devices.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = devices.cpp; sourceTree = "<group>"; };
+		673EEA5E265EBD5200340896 /* devices.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = devices.hpp; sourceTree = "<group>"; };
 		67DA506026531D3A003E0755 /* vulkan-fun */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "vulkan-fun"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67DA506326531D3A003E0755 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +104,8 @@
 				673EEA58265E9F8C00340896 /* debugMessengerUtil.hpp */,
 				673EEA5A265EA8F200340896 /* vulkan.cpp */,
 				673EEA5B265EA8F200340896 /* vulkan.hpp */,
+				673EEA5D265EBD5200340896 /* devices.cpp */,
+				673EEA5E265EBD5200340896 /* devices.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				673EEA5C265EA8F200340896 /* vulkan.cpp in Sources */,
+				673EEA5F265EBD5200340896 /* devices.cpp in Sources */,
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
 				673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */,
@@ -285,6 +291,7 @@
 		67DA506826531D3A003E0755 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
@@ -304,6 +311,7 @@
 		67DA506926531D3A003E0755 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (

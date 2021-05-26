@@ -7,11 +7,7 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     
     createInstance();
     debugMessengerUtil.setupDebugMessenger(pEnableValidationLayers, &instance);
-    pickPhysicalDevice();
-}
-
-void vulkan::pickPhysicalDevice() {
-    
+    devices.pickPhysicalDevice(&instance);
 }
 
 bool vulkan::checkValidationLayerSupport() {
@@ -67,7 +63,7 @@ void vulkan::createInstance(){
     
     // Some extra code to let vulkan know if validation layers have been enabled or not and to pass the relevent info through
     VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo;
-    if (*pEnableValidationLayers){        
+    if (*pEnableValidationLayers){
         createInfo.enabledLayerCount = static_cast<uint32_t>(pValidationLayers->size());
         createInfo.ppEnabledLayerNames = pValidationLayers->data();
         

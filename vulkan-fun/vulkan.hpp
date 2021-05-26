@@ -5,8 +5,10 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <cstring>
+#include <iostream>
 #include "debugMessengerUtil.hpp"
 #include "windowManager.hpp"
+#include "devices.hpp"
 
 class vulkan{
 public:
@@ -15,12 +17,12 @@ public:
 private:
     VkInstance instance;
     debugMessengerUtil debugMessengerUtil;
+    devices devices;
     
     const bool* pEnableValidationLayers;
     const std::vector<const char*>* pValidationLayers;
     windowManager* pWindow;
     
-    void pickPhysicalDevice();
     bool checkValidationLayerSupport();
     void createInstance();
 };
