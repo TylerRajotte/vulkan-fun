@@ -1,7 +1,11 @@
 #include "devices.hpp"
 
-void devices::pickPhysicalDevice(VkInstance* pInstance) {
+void devices::pickPhysicalDevice(VkInstance* pInstance, VkSurfaceKHR* initSurface) {
     // Goes through all the avaliable devices and makes sure we use a valid and proper one that will work
+    
+    // Also I guess im going to treat this like an init function for the devices class so I can get the to use it later
+    pSurface = initSurface;
+    
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(*pInstance, &deviceCount, nullptr);
     
@@ -47,6 +51,13 @@ QueueFamilyIndices devices::findQueueFamilies(VkPhysicalDevice device){
             indices.graphicsFamily = i;
         }
         
+        VkBool32 presentSupport = false;
+        vkGetPhysicalDeviceSurfaceSupportKHR(device, i, *pSurface, &presentSupport);
+        
+        if(presentSupport){
+            indices.presentFamily = i;
+        }
+        
         if (indices.isComplete()){
             break;
         }
@@ -61,21 +72,26 @@ void devices::createLogicalDevice(const bool* pEnableValidationLayers, const std
     // Filling out some structs for eventual logical device creation
     QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
     
-    VkDeviceQueueCreateInfo queueCreateInfo{};
-    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
-    queueCreateInfo.queueCount = 1;
+    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
+    std::set<uint32_t> uniqueQueueFamilies = {indices.graphicsFamily.value(), indices.presentFamily.value()};
     
     float queuePriority = 1.0f;
-    queueCreateInfo.pQueuePriorities = &queuePriority;
+    for (uint32_t queueFamily : uniqueQueueFamilies){
+        VkDeviceQueueCreateInfo queueCreateInfo{};
+        queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+        queueCreateInfo.queueFamilyIndex = queueFamily;
+        queueCreateInfo.queueCount = 1;
+        queueCreateInfo.pQueuePriorities = &queuePriority;
+        queueCreateInfos.push_back(queueCreateInfo);
+    }
     
     // Might be used layer to get other features like a swap chain
     VkPhysicalDeviceFeatures deviceFeatures{};
     
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.pQueueCreateInfos = &queueCreateInfo;
-    createInfo.queueCreateInfoCount = 1;
+    createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
+    createInfo.pQueueCreateInfos = queueCreateInfos.data();
     
     createInfo.pEnabledFeatures = &deviceFeatures;
     
@@ -94,6 +110,7 @@ void devices::createLogicalDevice(const bool* pEnableValidationLayers, const std
     }
     
     vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
+    vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
 }
 
 void devices::destroyDevices(){

@@ -7,7 +7,8 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     
     createInstance();
     debugMessengerUtil.setupDebugMessenger(pEnableValidationLayers, &instance);
-    devices.pickPhysicalDevice(&instance);
+    createSurface();
+    devices.pickPhysicalDevice(&instance, &surface);
     devices.createLogicalDevice(pEnableValidationLayers, pValidationLayers);
 }
 
@@ -84,6 +85,11 @@ void vulkan::createInstance(){
     }
 }
 
+void vulkan::createSurface(){
+    if(glfwCreateWindowSurface(instance, pWindow->window, nullptr, &surface) != VK_SUCCESS){
+        throw std::runtime_error("Failed to create window surface!");
+    }
+}
 
 void vulkan::destroyVulkan(){
     // Cleanup and Free the devices that were used
@@ -95,5 +101,6 @@ void vulkan::destroyVulkan(){
     }
     
     // General Cleanup to free memory
+    vkDestroySurfaceKHR(instance, surface, nullptr);
     vkDestroyInstance(instance, nullptr);
 }

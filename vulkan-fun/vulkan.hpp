@@ -16,6 +16,8 @@ public:
     void destroyVulkan();
 private:
     VkInstance instance;
+    VkSurfaceKHR surface;
+    
     debugMessengerUtil debugMessengerUtil;
     devices devices;
     
@@ -25,6 +27,7 @@ private:
     
     bool checkValidationLayerSupport();
     void createInstance();
+    void createSurface();
 };
 
 #endif /* vulkan_hpp */
