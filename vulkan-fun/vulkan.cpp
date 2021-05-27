@@ -8,6 +8,7 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     createInstance();
     debugMessengerUtil.setupDebugMessenger(pEnableValidationLayers, &instance);
     devices.pickPhysicalDevice(&instance);
+    devices.createLogicalDevice(pEnableValidationLayers, pValidationLayers);
 }
 
 bool vulkan::checkValidationLayerSupport() {
@@ -85,6 +86,9 @@ void vulkan::createInstance(){
 
 
 void vulkan::destroyVulkan(){
+    // Cleanup and Free the devices that were used
+    devices.destroyDevices();
+    
     // Clean up the messenger system if validation layers are enabled
     if (*pEnableValidationLayers) {
         debugMessengerUtil.destroyDebugMessengerUtil(&instance);

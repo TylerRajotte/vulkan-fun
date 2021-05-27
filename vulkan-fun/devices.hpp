@@ -18,7 +18,13 @@ struct QueueFamilyIndices {
 class devices{
 public:
     void pickPhysicalDevice(VkInstance* pInstance);
+    void createLogicalDevice(const bool* pEnableValidationLayers, const std::vector<const char*>* pValidationLayers);
+    void destroyDevices();
 private:
+    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+    VkDevice device;
+    VkQueue graphicsQueue;
+    
     bool isDeviceSuitable(VkPhysicalDevice device);
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 };

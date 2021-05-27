@@ -2,7 +2,6 @@
 
 void devices::pickPhysicalDevice(VkInstance* pInstance) {
     // Goes through all the avaliable devices and makes sure we use a valid and proper one that will work
-    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(*pInstance, &deviceCount, nullptr);
     
@@ -56,4 +55,47 @@ QueueFamilyIndices devices::findQueueFamilies(VkPhysicalDevice device){
     }
     
     return indices;
+}
+
+void devices::createLogicalDevice(const bool* pEnableValidationLayers, const std::vector<const char*>* pValidationLayers){
+    // Filling out some structs for eventual logical device creation
+    QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
+    
+    VkDeviceQueueCreateInfo queueCreateInfo{};
+    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
+    queueCreateInfo.queueCount = 1;
+    
+    float queuePriority = 1.0f;
+    queueCreateInfo.pQueuePriorities = &queuePriority;
+    
+    // Might be used layer to get other features like a swap chain
+    VkPhysicalDeviceFeatures deviceFeatures{};
+    
+    VkDeviceCreateInfo createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    createInfo.pQueueCreateInfos = &queueCreateInfo;
+    createInfo.queueCreateInfoCount = 1;
+    
+    createInfo.pEnabledFeatures = &deviceFeatures;
+    
+    createInfo.enabledExtensionCount = 0;
+    
+    // Validation Layers for the logical device if they are enabled to begin with
+    if(*pEnableValidationLayers){
+        createInfo.enabledLayerCount = static_cast<uint32_t>(pValidationLayers->size());
+        createInfo.ppEnabledLayerNames = pValidationLayers->data();
+    } else {
+        createInfo.enabledLayerCount = 0;
+    }
+    
+    if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS){
+        throw std::runtime_error("Failed to create logical device!");
+    }
+    
+    vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
+}
+
+void devices::destroyDevices(){
+    vkDestroyDevice(device, nullptr);
 }
