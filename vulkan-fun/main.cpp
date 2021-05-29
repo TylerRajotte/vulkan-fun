@@ -16,6 +16,10 @@ const std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation"
 };
 
+const std::vector<const char*> deviceExtensions = {
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+};
+
 // Fancy code to toggle validation layers when compiling a debug build
 #ifdef NDEBUG
     const bool enableValidationLayers = false;
@@ -28,7 +32,7 @@ public:
     void run() {
         // Overall progression of big events
         window.init(&enableValidationLayers, &WIDTH, &HEIGHT);
-        vulkan.initVulkan(&enableValidationLayers, &validationLayers, &window);
+        vulkan.initVulkan(&enableValidationLayers, &validationLayers, &deviceExtensions, &window);
         mainLoop();
         cleanup();
     }

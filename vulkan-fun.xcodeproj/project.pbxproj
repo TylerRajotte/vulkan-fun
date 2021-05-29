@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F740326616CCA00A7ACAB /* swapchain.cpp */; };
+		670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */; };
 		673EEA4626534EA700340896 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4526534EA700340896 /* libglfw.3.3.dylib */; };
 		673EEA4826534EC900340896 /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4726534EC900340896 /* libvulkan.1.dylib */; };
 		673EEA4A26534ECC00340896 /* libvulkan.1.2.176.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */; };
@@ -36,6 +38,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		670F740326616CCA00A7ACAB /* swapchain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = swapchain.cpp; sourceTree = "<group>"; };
+		670F740426616CCA00A7ACAB /* swapchain.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = swapchain.hpp; sourceTree = "<group>"; };
+		670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = querySwapchainSupport.cpp; sourceTree = "<group>"; };
+		670F740726627E9D00A7ACAB /* querySwapchainSupport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = querySwapchainSupport.hpp; sourceTree = "<group>"; };
 		673EEA4526534EA700340896 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		673EEA4726534EC900340896 /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 		673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.176.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.2.176.dylib; sourceTree = "<group>"; };
@@ -106,6 +112,10 @@
 				673EEA5B265EA8F200340896 /* vulkan.hpp */,
 				673EEA5D265EBD5200340896 /* devices.cpp */,
 				673EEA5E265EBD5200340896 /* devices.hpp */,
+				670F740326616CCA00A7ACAB /* swapchain.cpp */,
+				670F740426616CCA00A7ACAB /* swapchain.hpp */,
+				670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */,
+				670F740726627E9D00A7ACAB /* querySwapchainSupport.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -170,6 +180,8 @@
 				673EEA5F265EBD5200340896 /* devices.cpp in Sources */,
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
+				670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */,
+				670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */,
 				673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

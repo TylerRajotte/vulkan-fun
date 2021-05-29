@@ -1,15 +1,18 @@
 #include "vulkan.hpp"
 
-void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, windowManager* initWindow){
+void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExtensions, windowManager* initWindow){
     pEnableValidationLayers = initEnableValidationLayers;
     pValidationLayers = initValidationLayers;
+    pDeviceExtensions = initDeviceExtensions;
     pWindow = initWindow;
     
     createInstance();
     debugMessengerUtil.setupDebugMessenger(pEnableValidationLayers, &instance);
     createSurface();
-    devices.pickPhysicalDevice(&instance, &surface);
-    devices.createLogicalDevice(pEnableValidationLayers, pValidationLayers);
+    devices.initDeviceSetup(&surface, pDeviceExtensions, pEnableValidationLayers, pValidationLayers);
+    devices.pickPhysicalDevice(&instance);
+    devices.createLogicalDevice();
+    swapchain.createSwapChain(pWindow, &devices, &surface);
 }
 
 bool vulkan::checkValidationLayerSupport() {
@@ -92,7 +95,8 @@ void vulkan::createSurface(){
 }
 
 void vulkan::destroyVulkan(){
-    // Cleanup and Free the devices that were used
+    // Cleanup and Free the things used
+    swapchain.destroySwapChain();
     devices.destroyDevices();
     
     // Clean up the messenger system if validation layers are enabled

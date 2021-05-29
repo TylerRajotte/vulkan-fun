@@ -7,30 +7,37 @@
 #include <iostream>
 #include <optional>
 #include <set>
+#include <string>
+#include "querySwapchainSupport.hpp"
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
     std::optional<uint32_t> presentFamily;
     
-    bool isComplete() {
-        return graphicsFamily.has_value() && presentFamily.has_value();
-    }
+    bool isComplete();
 };
 
 class devices{
 public:
-    void pickPhysicalDevice(VkInstance* pInstance, VkSurfaceKHR* initSurface);
-    void createLogicalDevice(const bool* pEnableValidationLayers, const std::vector<const char*>* pValidationLayers);
-    void destroyDevices();
-private:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkDevice device;
+    
+    void initDeviceSetup(VkSurfaceKHR* initSurface, const std::vector<const char*>* initDeviceExtensions, const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers);
+    void pickPhysicalDevice(VkInstance* pInstance);
+    void createLogicalDevice();
+    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+    void destroyDevices();
+private:
     VkQueue graphicsQueue;
     VkQueue presentQueue;
+    
     VkSurfaceKHR* pSurface;
+    const std::vector<const char*>* pDeviceExtensions;
+    const bool* pEnableValidationLayers;
+    const std::vector<const char*>* pValidationLayers;
     
     bool isDeviceSuitable(VkPhysicalDevice device);
-    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+    bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 };
 
 #endif /* devices_hpp */

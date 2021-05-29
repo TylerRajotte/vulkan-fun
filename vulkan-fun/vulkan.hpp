@@ -9,10 +9,11 @@
 #include "debugMessengerUtil.hpp"
 #include "windowManager.hpp"
 #include "devices.hpp"
+#include "swapchain.hpp"
 
 class vulkan{
 public:
-    void initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, windowManager* initWindow);
+    void initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExensions, windowManager* initWindow);
     void destroyVulkan();
 private:
     VkInstance instance;
@@ -20,9 +21,11 @@ private:
     
     debugMessengerUtil debugMessengerUtil;
     devices devices;
+    swapchain swapchain;
     
     const bool* pEnableValidationLayers;
     const std::vector<const char*>* pValidationLayers;
+    const std::vector<const char*>* pDeviceExtensions;
     windowManager* pWindow;
     
     bool checkValidationLayerSupport();
