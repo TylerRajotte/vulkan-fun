@@ -13,6 +13,7 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     devices.pickPhysicalDevice(&instance);
     devices.createLogicalDevice();
     swapchain.createSwapChain(pWindow, &devices, &surface);
+    swapchain.createImageViews();
 }
 
 bool vulkan::checkValidationLayerSupport() {
