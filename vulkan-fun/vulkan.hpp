@@ -10,6 +10,7 @@
 #include "windowManager.hpp"
 #include "devices.hpp"
 #include "swapchain.hpp"
+#include "graphicsPipeline.hpp"
 
 class vulkan{
 public:
@@ -22,6 +23,7 @@ private:
     debugMessengerUtil debugMessengerUtil;
     devices devices;
     swapchain swapchain;
+    graphicsPipeline graphicsPipeline;
     
     const bool* pEnableValidationLayers;
     const std::vector<const char*>* pValidationLayers;

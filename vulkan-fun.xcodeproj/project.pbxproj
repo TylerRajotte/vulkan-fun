@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F740326616CCA00A7ACAB /* swapchain.cpp */; };
 		670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */; };
+		670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74092665948A00A7ACAB /* graphicsPipeline.cpp */; };
+		670F74192665D42600A7ACAB /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74172665D42600A7ACAB /* file.cpp */; };
 		673EEA4626534EA700340896 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4526534EA700340896 /* libglfw.3.3.dylib */; };
 		673EEA4826534EC900340896 /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4726534EC900340896 /* libvulkan.1.dylib */; };
 		673EEA4A26534ECC00340896 /* libvulkan.1.2.176.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */; };
@@ -35,6 +37,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67F7C58F26667ED40059E664 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +53,13 @@
 		670F740426616CCA00A7ACAB /* swapchain.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = swapchain.hpp; sourceTree = "<group>"; };
 		670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = querySwapchainSupport.cpp; sourceTree = "<group>"; };
 		670F740726627E9D00A7ACAB /* querySwapchainSupport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = querySwapchainSupport.hpp; sourceTree = "<group>"; };
+		670F74092665948A00A7ACAB /* graphicsPipeline.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphicsPipeline.cpp; sourceTree = "<group>"; };
+		670F740A2665948A00A7ACAB /* graphicsPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = graphicsPipeline.hpp; sourceTree = "<group>"; };
+		670F7413266599DB00A7ACAB /* shadervert.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadervert.vert; sourceTree = "<group>"; };
+		670F741426659A1B00A7ACAB /* shaderfrag.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shaderfrag.frag; sourceTree = "<group>"; };
+		670F74162665B25B00A7ACAB /* shadercompile.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = shadercompile.sh; sourceTree = "<group>"; };
+		670F74172665D42600A7ACAB /* file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		670F74182665D42600A7ACAB /* file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = file.hpp; sourceTree = "<group>"; };
 		673EEA4526534EA700340896 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		673EEA4726534EC900340896 /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 		673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.176.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.2.176.dylib; sourceTree = "<group>"; };
@@ -72,6 +90,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		670F74102665995600A7ACAB /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				670F7413266599DB00A7ACAB /* shadervert.vert */,
+				670F741426659A1B00A7ACAB /* shaderfrag.frag */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
 		673EEA4426534EA700340896 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +130,7 @@
 		67DA506226531D3A003E0755 /* vulkan-fun */ = {
 			isa = PBXGroup;
 			children = (
+				670F74102665995600A7ACAB /* shaders */,
 				67DA506326531D3A003E0755 /* main.cpp */,
 				673EEA50265D591100340896 /* windowManager.cpp */,
 				673EEA51265D591100340896 /* windowManager.hpp */,
@@ -116,6 +144,11 @@
 				670F740426616CCA00A7ACAB /* swapchain.hpp */,
 				670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */,
 				670F740726627E9D00A7ACAB /* querySwapchainSupport.hpp */,
+				670F74092665948A00A7ACAB /* graphicsPipeline.cpp */,
+				670F740A2665948A00A7ACAB /* graphicsPipeline.hpp */,
+				670F74162665B25B00A7ACAB /* shadercompile.sh */,
+				670F74172665D42600A7ACAB /* file.cpp */,
+				670F74182665D42600A7ACAB /* file.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -130,6 +163,8 @@
 				67DA505D26531D3A003E0755 /* Frameworks */,
 				67DA505E26531D3A003E0755 /* CopyFiles */,
 				67DA505C26531D3A003E0755 /* Sources */,
+				670F740C266597F200A7ACAB /* ShellScript */,
+				67F7C58F26667ED40059E664 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -171,6 +206,27 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		670F740C266597F200A7ACAB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./vulkan-fun/shadercompile.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		67DA505C26531D3A003E0755 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -178,8 +234,10 @@
 			files = (
 				673EEA5C265EA8F200340896 /* vulkan.cpp in Sources */,
 				673EEA5F265EBD5200340896 /* devices.cpp in Sources */,
+				670F74192665D42600A7ACAB /* file.cpp in Sources */,
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
+				670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */,
 				670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */,
 				670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */,
 				673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */,
