@@ -12,6 +12,7 @@
 		670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74092665948A00A7ACAB /* graphicsPipeline.cpp */; };
 		670F74192665D42600A7ACAB /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74172665D42600A7ACAB /* file.cpp */; };
 		6729F5732667BF2D00353777 /* renderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729F5712667BF2D00353777 /* renderPass.cpp */; };
+		6729F5762667D26300353777 /* frameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729F5742667D26300353777 /* frameBuffer.cpp */; };
 		673EEA4626534EA700340896 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4526534EA700340896 /* libglfw.3.3.dylib */; };
 		673EEA4826534EC900340896 /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4726534EC900340896 /* libvulkan.1.dylib */; };
 		673EEA4A26534ECC00340896 /* libvulkan.1.2.176.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */; };
@@ -63,6 +64,8 @@
 		670F74182665D42600A7ACAB /* file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = file.hpp; sourceTree = "<group>"; };
 		6729F5712667BF2D00353777 /* renderPass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = renderPass.cpp; sourceTree = "<group>"; };
 		6729F5722667BF2D00353777 /* renderPass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = renderPass.hpp; sourceTree = "<group>"; };
+		6729F5742667D26300353777 /* frameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frameBuffer.cpp; sourceTree = "<group>"; };
+		6729F5752667D26300353777 /* frameBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = frameBuffer.hpp; sourceTree = "<group>"; };
 		673EEA4526534EA700340896 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		673EEA4726534EC900340896 /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 		673EEA4926534ECC00340896 /* libvulkan.1.2.176.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.176.dylib; path = ../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.2.176.dylib; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				670F74182665D42600A7ACAB /* file.hpp */,
 				6729F5712667BF2D00353777 /* renderPass.cpp */,
 				6729F5722667BF2D00353777 /* renderPass.hpp */,
+				6729F5742667D26300353777 /* frameBuffer.cpp */,
+				6729F5752667D26300353777 /* frameBuffer.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
 				670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */,
+				6729F5762667D26300353777 /* frameBuffer.cpp in Sources */,
 				670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */,
 				670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */,
 				673EEA59265E9F8C00340896 /* debugMessengerUtil.cpp in Sources */,

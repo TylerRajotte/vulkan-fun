@@ -13,6 +13,7 @@
 #include "swapchain.hpp"
 #include "graphicsPipeline.hpp"
 #include "renderPass.hpp"
+#include "frameBuffer.hpp"
 
 class vulkan{
 public:
@@ -27,6 +28,7 @@ private:
     swapchain swapchain;
     renderPass renderPass;
     graphicsPipeline graphicsPipeline;
+    Framebuffer framebuffer;
     
     const bool* pEnableValidationLayers;
     const std::vector<const char*>* pValidationLayers;
