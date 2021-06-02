@@ -1,8 +1,9 @@
 #include "graphicsPipeline.hpp"
 
-void graphicsPipeline::createGraphicsPipeline(devices* initDevices, swapchain* initSwapchain){
+void graphicsPipeline::createGraphicsPipeline(devices* initDevices, swapchain* initSwapchain, renderPass* initRenderpass){
     pDevices = initDevices;
     pSwapchain = initSwapchain;
+    pRenderpass = initRenderpass;
     
     // Setup and filling structs for the shader modules into the larger graphics pipeline struct
     auto vertShaderCode = file.readFile("shadervert.spv");
@@ -101,6 +102,25 @@ void graphicsPipeline::createGraphicsPipeline(devices* initDevices, swapchain* i
         throw std::runtime_error("Failed to create pipeline layout!");
     }
     
+    VkGraphicsPipelineCreateInfo pipelineInfo{};
+    pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+    pipelineInfo.stageCount = 2;
+    pipelineInfo.pStages = shaderStages;
+    pipelineInfo.pVertexInputState = &vertexInputInfo;
+    pipelineInfo.pInputAssemblyState = &inputAssembly;
+    pipelineInfo.pViewportState = &viewportState;
+    pipelineInfo.pRasterizationState = &rasterizer;
+    pipelineInfo.pMultisampleState = &multisampling;
+    pipelineInfo.pColorBlendState = &colorBlending;
+    pipelineInfo.layout = pipelineLayout;
+    pipelineInfo.renderPass = pRenderpass->renderPass;
+    pipelineInfo.subpass = 0;
+    pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+    
+    if(vkCreateGraphicsPipelines(pDevices->device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS){
+        throw std::runtime_error("Failed to create graphics pipeline!");
+    }
+    
     vkDestroyShaderModule(pDevices->device, fragShaderModule, nullptr);
     vkDestroyShaderModule(pDevices->device, vertShaderModule, nullptr);
 }
@@ -122,5 +142,6 @@ VkShaderModule graphicsPipeline::createShaderModule(const std::vector<char>& cod
 }
 
 void graphicsPipeline::destroyGraphicsPipeline(){
+    vkDestroyPipeline(pDevices->device, graphicsPipeline, nullptr);
     vkDestroyPipelineLayout(pDevices->device, pipelineLayout, nullptr);
 }

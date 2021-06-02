@@ -6,11 +6,13 @@
 #include <vector>
 #include <cstring>
 #include <iostream>
+#include <stdexcept>
 #include "debugMessengerUtil.hpp"
 #include "windowManager.hpp"
 #include "devices.hpp"
 #include "swapchain.hpp"
 #include "graphicsPipeline.hpp"
+#include "renderPass.hpp"
 
 class vulkan{
 public:
@@ -23,6 +25,7 @@ private:
     debugMessengerUtil debugMessengerUtil;
     devices devices;
     swapchain swapchain;
+    renderPass renderPass;
     graphicsPipeline graphicsPipeline;
     
     const bool* pEnableValidationLayers;

@@ -14,7 +14,8 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     devices.createLogicalDevice();
     swapchain.createSwapChain(pWindow, &devices, &surface);
     swapchain.createImageViews();
-    graphicsPipeline.createGraphicsPipeline(&devices, &swapchain);
+    renderPass.createRenderPass(&devices, &swapchain);
+    graphicsPipeline.createGraphicsPipeline(&devices, &swapchain, &renderPass);
 }
 
 bool vulkan::checkValidationLayerSupport() {
@@ -99,6 +100,7 @@ void vulkan::createSurface(){
 void vulkan::destroyVulkan(){
     // Cleanup and Free the things used
     graphicsPipeline.destroyGraphicsPipeline();
+    renderPass.destroyRenderPass();
     swapchain.destroySwapChain();
     devices.destroyDevices();
     

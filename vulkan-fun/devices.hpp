@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 #include <optional>
 #include <set>
 #include <string>
