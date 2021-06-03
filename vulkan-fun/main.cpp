@@ -8,6 +8,12 @@
 #include "windowManager.hpp"
 #include "vulkan.hpp"
 
+//TODO
+// Move some of the class starter function that take in inits to a new init function that calls everything that way
+// Things can't be called out of order by accident, theres only one init function that does everything
+// Looks like swapchain and devices would only need to be changed out, might break some stuff when you do it however
+// But well cross that bridge when we get there
+
 // Width and Height of the window
 const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;

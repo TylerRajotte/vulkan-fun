@@ -14,10 +14,12 @@
 #include "graphicsPipeline.hpp"
 #include "renderPass.hpp"
 #include "frameBuffer.hpp"
+#include "commands.hpp"
 
 class vulkan{
 public:
     void initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExensions, windowManager* initWindow);
+    void drawFrame();
     void destroyVulkan();
 private:
     VkInstance instance;
@@ -28,7 +30,8 @@ private:
     swapchain swapchain;
     renderPass renderPass;
     graphicsPipeline graphicsPipeline;
-    Framebuffer framebuffer;
+    framebuffer framebuffer;
+    commands commands;
     
     const bool* pEnableValidationLayers;
     const std::vector<const char*>* pValidationLayers;

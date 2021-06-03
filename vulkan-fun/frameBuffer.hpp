@@ -9,8 +9,9 @@
 #include "devices.hpp"
 #include "swapchain.hpp"
 #include "renderPass.hpp"
+#include "frameBuffer.hpp"
 
-class Framebuffer{
+class framebuffer{
 public:
     void createFramebuffers(devices* initDevices, swapchain* initSwapchain, renderPass* initRenderpass);
     void destroyFramebuffers();

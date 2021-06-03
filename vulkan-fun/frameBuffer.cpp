@@ -1,6 +1,6 @@
 #include "frameBuffer.hpp"
 
-void Framebuffer::createFramebuffers(devices* initDevices, swapchain* initSwapchain, renderPass* initRenderpass){
+void framebuffer::createFramebuffers(devices* initDevices, swapchain* initSwapchain, renderPass* initRenderpass){
     pDevices = initDevices;
     pSwapchain = initSwapchain;
     pRenderpass = initRenderpass;
@@ -29,7 +29,7 @@ void Framebuffer::createFramebuffers(devices* initDevices, swapchain* initSwapch
     }
 }
 
-void Framebuffer::destroyFramebuffers(){
+void framebuffer::destroyFramebuffers(){
     for (auto framebuffer : swapChainFramebuffers){
         vkDestroyFramebuffer(pDevices->device, framebuffer, nullptr);
     }

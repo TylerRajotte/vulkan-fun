@@ -11,6 +11,7 @@
 		670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F740626627E9D00A7ACAB /* querySwapchainSupport.cpp */; };
 		670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74092665948A00A7ACAB /* graphicsPipeline.cpp */; };
 		670F74192665D42600A7ACAB /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F74172665D42600A7ACAB /* file.cpp */; };
+		672247DE2669147E0024E234 /* commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 672247DD2669147E0024E234 /* commands.cpp */; };
 		6729F5732667BF2D00353777 /* renderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729F5712667BF2D00353777 /* renderPass.cpp */; };
 		6729F5762667D26300353777 /* frameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729F5742667D26300353777 /* frameBuffer.cpp */; };
 		673EEA4626534EA700340896 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EEA4526534EA700340896 /* libglfw.3.3.dylib */; };
@@ -62,6 +63,8 @@
 		670F74162665B25B00A7ACAB /* shadercompile.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = shadercompile.sh; sourceTree = "<group>"; };
 		670F74172665D42600A7ACAB /* file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		670F74182665D42600A7ACAB /* file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = file.hpp; sourceTree = "<group>"; };
+		672247DD2669147E0024E234 /* commands.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commands.cpp; sourceTree = "<group>"; };
+		672247DF266914890024E234 /* commands.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = commands.hpp; sourceTree = "<group>"; };
 		6729F5712667BF2D00353777 /* renderPass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = renderPass.cpp; sourceTree = "<group>"; };
 		6729F5722667BF2D00353777 /* renderPass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = renderPass.hpp; sourceTree = "<group>"; };
 		6729F5742667D26300353777 /* frameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frameBuffer.cpp; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				6729F5722667BF2D00353777 /* renderPass.hpp */,
 				6729F5742667D26300353777 /* frameBuffer.cpp */,
 				6729F5752667D26300353777 /* frameBuffer.hpp */,
+				672247DD2669147E0024E234 /* commands.cpp */,
+				672247DF266914890024E234 /* commands.hpp */,
 			);
 			path = "vulkan-fun";
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				67DA506426531D3A003E0755 /* main.cpp in Sources */,
 				673EEA52265D591100340896 /* windowManager.cpp in Sources */,
 				670F740B2665948A00A7ACAB /* graphicsPipeline.cpp in Sources */,
+				672247DE2669147E0024E234 /* commands.cpp in Sources */,
 				6729F5762667D26300353777 /* frameBuffer.cpp in Sources */,
 				670F740826627E9E00A7ACAB /* querySwapchainSupport.cpp in Sources */,
 				670F740526616CCA00A7ACAB /* swapchain.cpp in Sources */,
