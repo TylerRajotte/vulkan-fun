@@ -18,6 +18,9 @@
 const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;
 
+// Defines how many frames can be processed concurrently
+const int MAX_FRAMES_IN_FLIGHT = 2;
+
 const std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation"
 };
@@ -38,7 +41,7 @@ public:
     void run() {
         // Overall progression of big events
         window.init(&enableValidationLayers, &WIDTH, &HEIGHT);
-        vulkan.initVulkan(&enableValidationLayers, &validationLayers, &deviceExtensions, &window);
+        vulkan.initVulkan(&enableValidationLayers, &validationLayers, &deviceExtensions, &window, &MAX_FRAMES_IN_FLIGHT);
         mainLoop();
         cleanup();
     }
@@ -50,7 +53,10 @@ private:
     void mainLoop() {
         while(!glfwWindowShouldClose(window.window)){
             glfwPollEvents();
+            vulkan.drawFrame();
         }
+        
+        vkDeviceWaitIdle(vulkan.devices.device);
     }
 
     void cleanup() {

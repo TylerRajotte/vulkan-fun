@@ -15,12 +15,13 @@ class commands{
 public:
     void initCommands(devices* initDevices, swapchain* initSwapchain, framebuffer* initFramebuffer, renderPass* initRenderpass, graphicsPipeline* initGraphicsPipeline);
     void destroyCommands();
+    
+    std::vector<VkCommandBuffer> commandBuffers;
 private:
     void createCommandPool();
     void createCommandBuffers();
     
     VkCommandPool commandPool;
-    std::vector<VkCommandBuffer> commandBuffers;
     
     devices* pDevices;
     swapchain* pSwapchain;

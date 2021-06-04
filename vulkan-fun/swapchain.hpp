@@ -18,13 +18,12 @@ public:
     void createImageViews();
     void destroySwapChain();
     
+    VkSwapchainKHR swapChain;
     VkFormat swapChainImageFormat;
     VkExtent2D swapChainExtent;
     std::vector<VkImageView> swapChainImageViews;
-private:
-    VkSwapchainKHR swapChain;
     std::vector<VkImage> swapChainImages;
-    
+private:
     windowManager* pWindow;
     devices* pDevices;
     VkSurfaceKHR* pSurface;

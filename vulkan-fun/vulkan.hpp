@@ -18,15 +18,21 @@
 
 class vulkan{
 public:
-    void initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExensions, windowManager* initWindow);
+    void initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExensions, windowManager* initWindow, const int* initMaxFramesInFlight);
     void drawFrame();
     void destroyVulkan();
+    
+    devices devices;
 private:
     VkInstance instance;
     VkSurfaceKHR surface;
+    std::vector<VkSemaphore> imageAvailableSemaphores;
+    std::vector<VkSemaphore> renderFinishedSemaphores;
+    std::vector<VkFence> inFlightFences;
+    std::vector<VkFence> imagesInFlight;
+    size_t currentFrame;
     
     debugMessengerUtil debugMessengerUtil;
-    devices devices;
     swapchain swapchain;
     renderPass renderPass;
     graphicsPipeline graphicsPipeline;
@@ -34,10 +40,12 @@ private:
     commands commands;
     
     const bool* pEnableValidationLayers;
+    const int* pMaxFramesInFlight;
     const std::vector<const char*>* pValidationLayers;
     const std::vector<const char*>* pDeviceExtensions;
     windowManager* pWindow;
     
+    void createSyncObjects();
     bool checkValidationLayerSupport();
     void createInstance();
     void createSurface();

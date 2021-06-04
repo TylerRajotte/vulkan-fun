@@ -22,6 +22,8 @@ class devices{
 public:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkDevice device;
+    VkQueue graphicsQueue;
+    VkQueue presentQueue;
     
     void initDeviceSetup(VkSurfaceKHR* initSurface, const std::vector<const char*>* initDeviceExtensions, const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers);
     void pickPhysicalDevice(VkInstance* pInstance);
@@ -29,9 +31,6 @@ public:
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
     void destroyDevices();
 private:
-    VkQueue graphicsQueue;
-    VkQueue presentQueue;
-    
     VkSurfaceKHR* pSurface;
     const std::vector<const char*>* pDeviceExtensions;
     const bool* pEnableValidationLayers;

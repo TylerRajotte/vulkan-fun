@@ -1,10 +1,13 @@
 #include "vulkan.hpp"
 
-void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExtensions, windowManager* initWindow){
+void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vector<const char*>* initValidationLayers, const std::vector<const char*>* initDeviceExtensions, windowManager* initWindow, const int* initMaxFramesInFlight){
     pEnableValidationLayers = initEnableValidationLayers;
     pValidationLayers = initValidationLayers;
     pDeviceExtensions = initDeviceExtensions;
     pWindow = initWindow;
+    pMaxFramesInFlight = initMaxFramesInFlight;
+    
+    currentFrame = 0;
     
     createInstance();
     debugMessengerUtil.setupDebugMessenger(pEnableValidationLayers, &instance);
@@ -18,6 +21,57 @@ void vulkan::initVulkan(const bool* initEnableValidationLayers, const std::vecto
     graphicsPipeline.createGraphicsPipeline(&devices, &swapchain, &renderPass);
     framebuffer.createFramebuffers(&devices, &swapchain, &renderPass);
     commands.initCommands(&devices, &swapchain, &framebuffer, &renderPass, &graphicsPipeline);
+    createSyncObjects();
+}
+
+void vulkan::drawFrame(){
+    // The big and real draw function, this will aquire an image from the swapchain, execute the command buffer wiht that image as an attachment in the framebuffer, and return the image to the swap chain for presentation
+    vkWaitForFences(devices.device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
+    
+    uint32_t imageIndex;
+    vkAcquireNextImageKHR(devices.device, swapchain.swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
+    
+    if (imagesInFlight[imageIndex] != VK_NULL_HANDLE) {
+        vkWaitForFences(devices.device, 1, &imagesInFlight[imageIndex], VK_TRUE, UINT64_MAX);
+    }
+    imagesInFlight[imageIndex] = inFlightFences[currentFrame];
+    
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    
+    VkSemaphore waitSemaphores[] = {imageAvailableSemaphores[currentFrame]};
+    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+    submitInfo.waitSemaphoreCount = 1;
+    submitInfo.pWaitSemaphores = waitSemaphores;
+    submitInfo.pWaitDstStageMask = waitStages;
+    submitInfo.commandBufferCount = 1;
+    VkCommandBuffer currentCommandBuffer = commands.commandBuffers[imageIndex];
+    submitInfo.pCommandBuffers = &currentCommandBuffer;
+    
+    VkSemaphore signalSemaphores[] = {renderFinishedSemaphores[currentFrame]};
+    submitInfo.signalSemaphoreCount = 1;
+    submitInfo.pSignalSemaphores = signalSemaphores;
+    
+    vkResetFences(devices.device, 1, &inFlightFences[currentFrame]);
+    
+    if (vkQueueSubmit(devices.graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS){
+        throw std::runtime_error("Failed to submit draw command buffers!");
+    }
+    
+    VkPresentInfoKHR presentInfo{};
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    presentInfo.waitSemaphoreCount = 1;
+    presentInfo.pWaitSemaphores = signalSemaphores;
+    
+    VkSwapchainKHR swapChains[] = {swapchain.swapChain};
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = swapChains;
+    presentInfo.pImageIndices = &imageIndex;
+    
+    vkQueuePresentKHR(devices.presentQueue, &presentInfo);
+    vkQueueWaitIdle(devices.presentQueue);
+    
+    currentFrame = (currentFrame + 1) % *pMaxFramesInFlight;
 }
 
 bool vulkan::checkValidationLayerSupport() {
@@ -99,8 +153,35 @@ void vulkan::createSurface(){
     }
 }
 
+void vulkan::createSyncObjects(){
+    // Sets up the semaphores so that everything can be synced even if things finish at different rates
+    imageAvailableSemaphores.resize(*pMaxFramesInFlight);
+    renderFinishedSemaphores.resize(*pMaxFramesInFlight);
+    inFlightFences.resize(*pMaxFramesInFlight);
+    imagesInFlight.resize(swapchain.swapChainImages.size(), VK_NULL_HANDLE);
+    
+    VkSemaphoreCreateInfo semaphoreInfo{};
+    semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    
+    VkFenceCreateInfo fenceInfo{};
+    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+    
+    for (size_t i = 0; i < *pMaxFramesInFlight; i++){
+        if (vkCreateSemaphore(devices.device, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]) != VK_SUCCESS | vkCreateSemaphore(devices.device, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS |
+            vkCreateFence(devices.device, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS){
+            throw std::runtime_error("failed to create sync objects for a frame!");
+        }
+    }
+}
+
 void vulkan::destroyVulkan(){
     // Cleanup and Free the things used
+    for (size_t i = 0; i < *pMaxFramesInFlight; i++){
+        vkDestroySemaphore(devices.device, renderFinishedSemaphores[i], nullptr);
+        vkDestroySemaphore(devices.device, imageAvailableSemaphores[i], nullptr);
+        vkDestroyFence(devices.device, inFlightFences[i], nullptr);
+    }
     commands.destroyCommands();
     framebuffer.destroyFramebuffers();
     graphicsPipeline.destroyGraphicsPipeline();
