@@ -59,9 +59,6 @@ bool devices::checkDeviceExtensionSupport(VkPhysicalDevice device){
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
     vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
     
-    // Maybe insert that vk_KHR_portability_subset thing in here with an if statement or something
-    // https://stackoverflow.com/questions/66659907/vulkan-validation-warning-catch-22-about-vk-khr-portability-subset-on-moltenvk
-    
     std::set<std::string> requiredExtensions(pDeviceExtensions->begin(), pDeviceExtensions->end());
     
     for (const auto& extension : availableExtensions){
@@ -69,6 +66,22 @@ bool devices::checkDeviceExtensionSupport(VkPhysicalDevice device){
     }
     
     return requiredExtensions.empty();
+}
+
+bool devices::isPortableSpec(VkPhysicalDevice device){
+    // Gets extensions and checks if VK_KHR_portability_subset is around and if it is return true
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+    
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+    
+    for (const auto& extension : availableExtensions){
+        if (strcmp(extension.extensionName, "VK_KHR_portability_subset") == 0){
+            return true;
+        }
+    }
+    return false;
 }
 
 QueueFamilyIndices devices::findQueueFamilies(VkPhysicalDevice device){
@@ -131,9 +144,18 @@ void devices::createLogicalDevice(){
     
     createInfo.pEnabledFeatures = &deviceFeatures;
     
-    createInfo.enabledExtensionCount = static_cast<uint32_t>(pDeviceExtensions->size());
-    createInfo.ppEnabledExtensionNames = pDeviceExtensions->data();
-    
+    // Check if the spec is in portable mode then activates portability subset
+    std::vector<const char*> updatedDeviceExtensions = *pDeviceExtensions;
+    if (isPortableSpec(physicalDevice)) {
+        std::string portablityExt = "VK_KHR_portability_subset";
+        updatedDeviceExtensions.push_back(portablityExt.c_str());
+        createInfo.enabledExtensionCount = static_cast<uint32_t>(pDeviceExtensions->size()) + 1;
+        createInfo.ppEnabledExtensionNames = updatedDeviceExtensions.data();
+    } else {
+        createInfo.enabledExtensionCount = static_cast<uint32_t>(pDeviceExtensions->size());
+        createInfo.ppEnabledExtensionNames = pDeviceExtensions->data();
+    }
+
     // Validation Layers for the logical device if they are enabled to begin with
     if(*pEnableValidationLayers){
         createInfo.enabledLayerCount = static_cast<uint32_t>(pValidationLayers->size());

@@ -38,6 +38,7 @@ private:
     
     bool isDeviceSuitable(VkPhysicalDevice device);
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
+    bool isPortableSpec(VkPhysicalDevice);
 };
 
 #endif /* devices_hpp */

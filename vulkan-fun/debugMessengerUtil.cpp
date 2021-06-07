@@ -45,7 +45,7 @@ void debugMessengerUtil::setupDebugMessenger(const bool* pEnableValidationLayers
     VkDebugUtilsMessengerCreateInfoEXT createInfo;
     populateDebugMessengerCreateInfo(createInfo);
     
-    //Creates the actual messenger mechanism
+    // Creates the actual messenger mechanism
     if(CreateDebugUtilsMessengerEXT(*pInstance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS){
         throw std::runtime_error("failed to setup debug messenger");
     }

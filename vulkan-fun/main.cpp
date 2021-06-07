@@ -25,8 +25,10 @@ const std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation"
 };
 
+//std::string test = "VK_KHR_portability_subset";
 const std::vector<const char*> deviceExtensions = {
-    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+//    test.c_str()
 };
 
 // Fancy code to toggle validation layers when compiling a debug build
